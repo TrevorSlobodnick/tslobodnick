@@ -1,0 +1,4 @@
+# Ignore Mac File
+.DS_STORE
+# Ignore Files in php directory
+PHP/
