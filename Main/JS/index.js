@@ -1,5 +1,6 @@
 'use strict';
 
+// Declare typdefs to be used throughout the project
 /** 
  * Project Links
  * @typedef {Object} ProjectLinks
@@ -15,105 +16,162 @@
  * 
 */
 
-let projectsColl = document.getElementsByClassName("project");
-let projectsArr = Array.from(projectsColl);
-let timelines = [];
-let projectInfoTimeline;
-let maxOrder = 6;
 
-const mediaQuery = window.matchMedia('(max-width: 1000px)');
-const hamburger = document.getElementById("hamburger");
+
+
+//DECLARE GLOBAL VARS
+
+let projectsColl = document.getElementsByClassName("project"); //Get all elements that have the  "project" class
+let projectsArr = Array.from(projectsColl); //Convert HTMLCollection to Array
+let timelines = []; //stores all of the GSAP (animation) timelines for each element in the projectsArr
+let projectInfoTimeline; //stores the GSAP (animation) timeline for animating the info for a project into view
+
+//Small Screen Vars
+const mediaQuery = window.matchMedia('(max-width: 1000px)'); //use this media query to determine if the user is on a mobile device
+const hamburger = document.getElementById("hamburger"); //stores the hamburger (menu) image as a variable
 let mobileTimelines = [];
 
+//declaring variables that will be used to display the info for a selected project
 let displayTitle, displayDescription, displayGithub, displayInfo, displayWeb;
 
 //Must be called before buttons because it involves creating the nav
 if(!mediaQuery.matches){
-    //only execute if not a mobile device
-    createNav(false);
-    setHeightOfHobbyElement();
+    // user is NOT on a mobile device
+    createNav(false); // ( displayMobileNav )
+    setHeightOfHobbyElement(); 
+    //NOTE: the hobby element is set based on available height, which grows or shrinks depending on screen size
     window.addEventListener("resize", function(e){
+        // adjust hobby element on window resize
         setHeightOfHobbyElement();
     })
 }
 else{
-    createNav(true);
+    // user is on mobile device
+    createNav(true); // ( displayMobileNav )
 }
 
+// "body" element
 const body = document.querySelector("body");
+// #aboutBtn
 const aboutBtn = document.getElementById("aboutBtn");
+// #servicesBtn
 const servicesBtn = document.getElementById("servicesBtn");
+// #projectsBtn
 const projectsBtn = document.getElementById("projectsBtn");
+// #contactBtn
 const contactBtn = document.getElementById("contactBtn");
 
+// #projectInfo, div that holds the project title
 const titleDiv = document.getElementById("projectTitle");
+// #titleSpan, span used in the title, for styling
 const titleSpan = document.getElementById("titleSpan");
+// #projectInfoWrapper, div used to wrap all the info for a project
 const projectInfoWrapper = document.getElementById("projectInfoWrapper");
+// #descriptionP, brief paragraph describing a project
 const descriptionP = document.getElementById("descriptionP");
+// #githubLink, a tag that links to the github repo for the current project
 const githubLink = document.getElementById("githubLink");
+// #infoLink, a tag that links to the a page containing more info for the current project
 const infoLink = document.getElementById("infoLink");
+// #webLink, a tag that links to the website associated with the current project
 const webLink = document.getElementById("webLink");
 
+//rectangle surrounding the title div
 let titleDivRect = titleDiv.getBoundingClientRect();
 const setHeightOfHobbyElementialProjWidth = roundToTwo(titleDivRect.width / body.getBoundingClientRect().width) * 100;
 
+
+
+
+
+
+
+//ADDING EVENT LISTENERS...
+
 aboutBtn.addEventListener("click", function(e){
+    //Add "Smooth Scroll" effect
     scrollToElement("about");
+    //if its a mobile device
     if (mediaQuery.matches){
+        //close the side nav
         closeMobileNav();
     }
 });
 
 servicesBtn.addEventListener("click", function(e){
     scrollToElement("whatIDo");
+    //if its a mobile device
     if (mediaQuery.matches){
+        //close the side nav
         closeMobileNav();
     }
 });
 
 projectsBtn.addEventListener("click", function(e){
     scrollToElement("projects");
+    //if its a mobile device
     if (mediaQuery.matches){
+        //close the side nav
         closeMobileNav();
     }
 });
 
 contactBtn.addEventListener("click", function(e){
     scrollToElement("contact");
+    //if its a mobile device...
     if (mediaQuery.matches){
+        //close the side nav
         closeMobileNav();
     }
 });
 
+//loop through all projects...
 projectsArr.forEach(element => {
+    //if viewing on a mobile device...
     if (mediaQuery.matches){
+        //create empty div container to put project info in
         createProjectInfoMobile(element, element.dataset.id);
+        //add click event
         element.addEventListener("click", onProjectClickMobile);
     }
     else{
+        //add click event
         element.addEventListener("click", onProjectClick);
+        //create a GSAP (animation) timeline for the current project
         createTimeline(element);
     }
 });
 
 titleDiv.addEventListener("click", function(e){
+    //close an open project, if there is one
     closeOpenProject();
     titleSpan.textContent = "";
 });
 titleDiv.addEventListener("mouseenter", function(e){
     let openProject = document.getElementsByClassName("open")[0];
+    //if there is an open project...
     if (openProject != null){
+        //set text equal to "close"
         titleSpan.textContent = "Close";
     }
 });
 titleDiv.addEventListener("mouseleave", function(e){
+    //if the display title has a value... 
     if (displayTitle != null){
+        //set text to initial value
         titleSpan.textContent = displayTitle;
     }
     else{
+        //reset text
         titleSpan.textContent = "";
     }
 });
+
+//FINISHED ADDING EVENT LISTENERS
+
+
+
+
 
 /**
  * Handles onClick event for any li element
@@ -127,11 +185,14 @@ function onProjectClick(e){
         onProjectClickMobile(e);
     }
     else{
+        //close open projects
         closeOpenProject();
         e.preventDefault();
+        //open project that was clicked on
         if(ct.classList.contains("closed")){
             ct.classList.remove("closed")
             ct.classList.add("open")
+            //get the timeline (animation) for the clicked on element and play it
             getTimelineForElement(ct).play()
         }
     }
@@ -145,16 +206,20 @@ function createTimeline(target){
     //TIMELINE
     let containerWidth = target.parentElement.clientWidth;
     let midContainer = containerWidth / 2;
-    let targetRect = target.getBoundingClientRect();    
+    let targetRect = target.getBoundingClientRect();
 
-    //midContainer - parentRect.x will align the left side of the element to center, but since we want mid alignment, we need adjust the animX so it accounts for half the width
+    // (midContainer - parentRect.x) will align the left side of the element to the center of the screen, 
+    // but since we want to align the middle of the element to the center of the screen,
+    // we need to subtract half the width of the element (targetRect.width / 2), this will push it to the center
     let animX = midContainer - targetRect.x - (targetRect.width / 2);
-    //top of destination - top of current project will give distance it needs to travel
+    // (top of destination - top of current project) will give distance it needs to travel in the y
     let animY = titleDivRect.top - targetRect.top;
-    
-    let tl = gsap.timeline( {paused: true, onComplete: animateProject, onCompleteParams: [target.dataset.id]} )
     //ANIMATIONS
+    //0. initialise timeline, disable autoplay, add an onComplete function and pass it a value
+    let tl = gsap.timeline( {paused: true, onComplete: animateProject, onCompleteParams: [target.dataset.id]} )
+    //1. move the clicked project to the center (horizontally) and slightly below the other projects (vertically), (0.3s)
     tl.to(target, {x: animX, y: animY, duration: animTime, ease: "linear"});
+    //2. make the clicked project visible, (instantly)
     tl.to(target, {visibility: "hidden", duration: 0});
     //Add timeline to timelines array
     timelines.push(tl);
@@ -162,7 +227,7 @@ function createTimeline(target){
 
 /**
  * Returns the timeline for a given element
- * @param {*} element 
+ * @param {HTMLElement} element An HTMLElement that contains the "project" class
  * @returns Timeline
  */
 function getTimelineForElement(element){
@@ -177,45 +242,61 @@ function getTimelineForElement(element){
 }
 
 /**
- * Called after a project has been click.
- * Animates the project into view and sets text/link data to be displayed
- * @param {string} projId A unique string that identifies a project
+ * Called after a project has been clicked.
+ * Animates the project into view and sets data to be displayed
+ * @param {string} projId A unique string that identifies a project in Constants.js
  */
 function animateProject(projId){
     /** @type Project */
-    let projectInfo = projects[projId];
+    let projectInfo = projects[projId]; //Stores a project from the projects object in Constants.js
 
-    displayTitle = projectInfo.title;
-    displayDescription = projectInfo.description;
-    displayGithub = projectInfo.links.github;
-    displayInfo = projectInfo.links.info;
-    displayWeb = projectInfo.links.web;
+    displayTitle = projectInfo.title; //title of the project
+    displayDescription = projectInfo.description; //brief description of the project
+    displayGithub = projectInfo.links.github; //link to github
+    displayInfo = projectInfo.links.info; //link to more info page
+    displayWeb = projectInfo.links.web; //link to the website
 
+    //Display the values we just got into html...
     titleSpan.textContent = displayTitle;
     descriptionP.textContent = displayDescription;
     githubLink.href = displayGithub;
     infoLink.href = displayInfo;
     webLink.href = displayWeb;
 
+    //Create Animation Timeline
+    //0. Declare new timeline, turn autoplay off.
     projectInfoTimeline = gsap.timeline( {paused: true} );
+    //1. Make the title visible (instantly)
     projectInfoTimeline.to(titleDiv, {visibility: "visible", duration: 0});
+    //2. Set the title width to 100% (animTime)
     projectInfoTimeline.to(titleDiv, {width: "100%", duration: animTime});
+    //3. Set the titel border radius to 0 (0.1s)
     projectInfoTimeline.to(titleDiv, {borderRadius: 0, duration: 0.1, ease: "linear"});
+    //4. Set the project wrapper display property equal to "Block" (instantly)
     projectInfoTimeline.to(projectInfoWrapper, {display: "block", duration: 0});
+    //5. Set the project wrapper height equal to "auto" (animTime)
     projectInfoTimeline.to(projectInfoWrapper, {height: "auto", duration: animTime});
+    //Play the animation
     projectInfoTimeline.play();
 }
 
 /**
- * If there is an open project, close it
+ * If there is an open project, calling this function will close it
  */
 function closeOpenProject(){
+    //get open project
     let openProject = document.getElementsByClassName("open")[0];
+    //if there is an open project...
     if (openProject != null){
+        //remove "open" class
         openProject.classList.remove("open");
+        //add "closed" class
         openProject.classList.add("closed");
+        //get timeline (animation) for the open porject and "undo" it
         getTimelineForElement(openProject).reverse();
+        //stop the project info timeline (animation)
         projectInfoTimeline.pause();
+        //resets project info to nothing/empty strings
         resetProjectInfo();
     }
 }
@@ -241,14 +322,18 @@ function resetProjectInfo(){
 
 /**
  * Round a given number to 2 decimal places
- * Some simpler methods are not reliable in some cases
+ * NOTE: the simpler methods are not reliable
  * @param {number} num the number to round
- * @returns number
+ * @returns {number} the rounded number
  */
 function roundToTwo(num) {
     return +(Math.round(num + "e+2")  + "e-2");
 }
 
+/**
+ * Auto scroll to the element that contains the passed id
+ * @param {String} id 
+ */
 function scrollToElement(id){
     document.getElementById(id).scrollIntoView({ 
         behavior: 'smooth' 
@@ -258,7 +343,7 @@ function scrollToElement(id){
 /**
  * Set the height of the given element to half the height of the second element
  * @param {HTMLElement} element1 the element to set the height of
- * @param {HTMLElement} element2 the element to base the height off of
+ * @param {HTMLElement} element2 the element to base the height off of, usually the parent of element1
  */
 function setHalfHeight(element1, element2){
     element1.style.minHeight = element2.clientHeight / 2 + "px";
@@ -266,7 +351,7 @@ function setHalfHeight(element1, element2){
 }
 
 /**
- * Sets the height of hobbyWrapper element and the svg elements inside
+ * Sets the height of #hobbiesWrapper and .hobby-svg are set to half the height of their parent containers
  */
 function setHeightOfHobbyElement(){
     setHalfHeight(document.getElementById("hobbiesWrapper"), document.getElementsByClassName("hobbies-container")[0]);
@@ -276,12 +361,14 @@ function setHeightOfHobbyElement(){
 }
 
 /**
- * Create the nav
- * @param {bool} mobile is the device mobile
+ * Create the nav and add it to the DOM
+ * @param {boolean} mobile true to create the mobile nav, false to create the regular nav
  */
 function createNav(mobile){
     if(mobile){
+        //show hamburger
         hamburger.parentElement.style.display = "flex";
+        //the parent element is the right half of the header
         hamburger.parentElement.insertAdjacentHTML('afterend', `
         <nav class="nav-small" style="display: none;">
             <ul class="nav-list">
@@ -294,7 +381,9 @@ function createNav(mobile){
         </nav>`);
     }
     else{
+        //hide hamburger
         hamburger.parentElement.style.display = "none";
+        //the parent element is the right half of the header
         hamburger.parentElement.insertAdjacentHTML('beforebegin', `
         <nav class="flex-child nav-large">
             <ul class="nav-list">
@@ -324,6 +413,7 @@ function createNav(mobile){
 /* MOBILE CODE */
 
 hamburger.addEventListener('click', openMobileNav);
+//if viewing on a mobile device...
 if (mediaQuery.matches){
     document.getElementById("closeNav").addEventListener('click', closeMobileNav);
 }
@@ -332,22 +422,25 @@ if (mediaQuery.matches){
  * Called when a project is clicked on a mobile device
  */
  function onProjectClickMobile(e){
-    //Create an element to hold the data
+    //get the id stored in data-id from the element that was clicked on
     let infoid = e.currentTarget.dataset.id;
+    //use the id to get the info div
     let infoDiv = document.getElementById("info" + infoid);
+    //get the timeline (animation) for the the element that was clicked on
     let tl = getTimelineForElement(e.currentTarget);
+    //if the info div is not being displayed...
     if(infoDiv.style.display == "none"){
+        //display the info div
         e.currentTarget.style.color = "black";
         e.currentTarget.style.backgroundColor = "hsl(317 100% 54%)";
         e.currentTarget.style.boxShadow = "0 0 1em 0.1em hsl(317 100% 54%)";
-        console.log("playing");
         tl.play();
     }
     else{
+        //hide the info div
         e.currentTarget.style.color = "hsl(317 100% 54%)";
         e.currentTarget.style.backgroundColor = "transparent";
         e.currentTarget.style.boxShadow = "none";
-        console.log("reversing");
         tl.reverse();
     }
 } 
@@ -358,6 +451,7 @@ if (mediaQuery.matches){
  * @param {string} projId the project id of the project to create the info section for
  */
 function createProjectInfoMobile(projectDiv, projId){
+    //get the project from projects Object in Costants.js
     /** @type Project */
     const project = projects[projId];
     const markup =
@@ -390,16 +484,21 @@ function createProjectInfoMobile(projectDiv, projId){
         </div>
     </div>
     `;
+    //add the above html to the dom
     projectDiv.insertAdjacentHTML('afterend', markup);
-    //Add timeline
+    //Create the timeline (animation) for mobile
+    //0. initialise timeline, disabling autoplay
     let mobileTL = gsap.timeline( {paused: true} );
+    //1. Set the info div to display "block", (instantly)
     mobileTL.to("#info" + projId, {display: "block", duration: 0, ease: "linear"});
-    mobileTL.to("#info" + projId, {height: "auto", duration: 0.1, ease: "linear"}); //Default = animTime = 0.5 is too slow on mobile
+    //2.0 Set the info div to height "auto", (mobileAnimTime)
+    mobileTL.to("#info" + projId, {height: "auto", duration: mobileAnimTime, ease: "linear"});
+    //add this timeline to the mobileTimelines array
     mobileTimelines.push(mobileTL);
 }
 
 /**
- * 
+ * Shorten the description text for mobile devices and add .. to the end
  * @param {string} str the string to truncate
  */
 function truncateMobileText(str){
@@ -409,14 +508,26 @@ function truncateMobileText(str){
     return str;
 }
 
+/**
+ * Animates the nav into view
+ */
 function closeMobileNav(){
+    //reset overflow style for the body to allow for scrolling
     body.style.overflow = "unset";
+    // set width of mobile nav to 0px (0.3s)
     gsap.to(document.querySelector(".nav-small"), {width: "0px", duration: 0.3, ease: "linear"})
+    // set display to none (happens instantly, but is delayed by 0.3s, so the above animation can finish)
     gsap.to(document.querySelector(".nav-small"), {display: "none", duration: 0, delay: 0.3});
 }
 
+/**
+ * Animates the nav out of view
+ */
 function openMobileNav(){
+    //set overflow style to hidden on the body so you cant scroll the page while the nav is open
     body.style.overflow = "hidden";
+    // set display to block (instantly)
     gsap.to(document.querySelector(".nav-small"), {display: "block", duration: 0})
+    // set width of mobile nav to 50% (0.3s)
     gsap.to(document.querySelector(".nav-small"), {width: "50%", duration: 0.3, ease: "linear"});
 }

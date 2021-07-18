@@ -1,6 +1,6 @@
 const maxMobileCharsLength = 200;
 const animTime = 0.5;
-const mobileAnimTime = 0.2;
+const mobileAnimTime = 0.1;
 const projects = {
     "ACNH" : {
         "title" : "Museum Tracker For Animal Crossing New Horizons",
