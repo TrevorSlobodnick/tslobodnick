@@ -1,5 +1,5 @@
 # tslobodnick
-The source code for my website: [https://tslobodnick.ca](https://tslobodnick.ca)
+The source code for my website: [tslobodnick.ca](https://tslobodnick.ca)
 
 ## Technologies Used
 - Html
