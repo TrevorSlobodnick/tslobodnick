@@ -4,47 +4,56 @@ const mobileAnimTime = 0.1;
 const projects = {
     "ACNH" : {
         "title" : "Museum Tracker For Animal Crossing New Horizons",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere elementum felis, a bibendum lectus aliquet sed. Aliquam erat volutpat. In hac habitasse platea dictumst. Aenean vehicula ante ut ligula dictum, iaculis luctus tellus consequat. Nam in enim nec libero pellentesque sagittis. Praesent nec viverra odio. Duis bibendum, tortor ac eleifend vestibulum, orci libero finibus elit, a posuere augue mi placerat risus. Nulla id lorem nec tellus commodo pretium in et magna. Pellentesque congue massa a faucibus efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere elementum felis, a bibendum lectus aliquet sed. Aliquam erat volutpat. In hac habitasse platea dictumst. Aenean vehicula ante ut ligula dictum, iaculis luctus tellus consequat. Nam in enim nec libero pellentesque sagittis. Praesent nec viverra odio. Duis bibendum, tortor ac eleifend vestibulum, orci libero finibus elit, a posuere augue mi placerat risus. Nulla id lorem nec tellus commodo pretium in et magna. Pellentesque congue massa a faucibus efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere elementum felis, a bibendum lectus aliquet sed. Aliquam erat volutpat. In hac habitasse platea dictumst. Aenean vehicula ante ut ligula dictum, iaculis luctus tellus consequat. Nam in enim nec libero pellentesque sagittis. Praesent nec viverra odio. Duis bibendum, tortor ac eleifend vestibulum, orci libero finibus elit, a posuere augue mi placerat risus. Nulla id lorem nec tellus commodo pretium in et magna. Pellentesque congue massa a faucibus efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere elementum felis, a bibendum lectus aliquet sed. Aliquam erat volutpat. In hac habitasse platea dictumst. Aenean vehicula ante ut ligula dictum, iaculis luctus tellus consequat. Nam in enim nec libero pellentesque sagittis. Praesent nec viverra odio. Duis bibendum, tortor ac eleifend vestibulum, orci libero finibus elit, a posuere augue mi placerat risus. Nulla id lorem nec tellus commodo pretium in et magna. Pellentesque congue massa a faucibus efficitur. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut posuere elementum felis, a bibendum lectus aliquet sed. Aliquam erat volutpat. In hac habitasse platea dictumst. Aenean vehicula ante ut ligula dictum, iaculis luctus tellus consequat. Nam in enim nec libero pellentesque sagittis. Praesent nec viverra odio. Duis bibendum, tortor ac eleifend vestibulum, orci libero finibus elit, a posuere augue mi placerat risus. Nulla id lorem nec tellus commodo pretium in et magna. Pellentesque congue massa a faucibus efficitur",
+        "description" : "I always wanted an easy way to track my museum progress in Animal Crossing New Horizons, so I built this app. It is used to log which bugs, fossils, art, fish, and other sea creatures you have in your museum. It also makes it easy to find the creatures you dont have in your museum, so you can start searching for them.",
         "links" : {
-            "github" : "",
-            "info" : "",
-            "web" : "https://www.tslobodnick.ca/MusuemTracker/"
+            "github" : "https://www.tslobodnick.ca/ComingSoon/",
+            "info" : "https://www.tslobodnick.ca/ComingSoon/",
+            "web" : "https://www.tslobodnick.ca/MuseumTracker/"
         }
     },
     "Pokemon" : {
         "title" : "Personal Pokemon Card Tracker",
-        "description" : "This is animal Pokemon Card Tracker",
+        "description" : "This is an app that I made for myself to help manage/track my pokemon card collection.",
         "links" : {
-            "github" : "",
-            "info" : "",
+            "github" : "https://github.com/TrevorSlobodnick/PokemonCardCollection_v2",
+            "info" : "https://www.tslobodnick.ca/ComingSoon/",
             "web" : "https://www.tslobodnick.ca/PokemonCardTracker/"
         }
     },
     "Voltorb" : {
         "title" : "Voltorb Flip Solver",
-        "description" : "This is Voltorb Flip Solver",
+        "description" : "This app generates all the possible solutions of a given board from the game \"Voltorb Flip\". Voltorb Flip is a game in Pokemon Heartgold/Soulsilver that is similar to Minesweeper. The goal of the game is to uncover all of the 2 and 3 tiles on a given board and move up to higher levels, but if the tile you select is a Voltorb/bomb, you lose.",
         "links" : {
-            "github" : "",
-            "info" : "",
+            "github" : "https://www.tslobodnick.ca/ComingSoon/",
+            "info" : "https://www.tslobodnick.ca/ComingSoon/",
             "web" : "https://www.tslobodnick.ca/VoltorbFlip/"
         }
     },
     "Blimeys" : {
         "title" : "Blimeys Website Redesign",
-        "description" : "This is Blimeys redesign",
+        "description" : "This is a redesign of a small british store called Blimeys",
         "links" : {
-            "github" : "",
-            "info" : "",
+            "github" : "https://github.com/TrevorSlobodnick/BlimeysRedesign",
+            "info" : "https://www.tslobodnick.ca/ComingSoon/",
             "web" : "https://www.tslobodnick.ca/Blimeys/"
         }
     },
     "AmongUs" : {
         "title" : "Among Us Fansite",
-        "description" : "This is Among us fansite",
+        "description" : "This is a site for the game among us that has a bunch of different info about the game and developers, and also features a chatroom.",
         "links" : {
-            "github" : "",
-            "info" : "",
+            "github" : "https://github.com/TrevorSlobodnick/BlimeysRedesign",
+            "info" : "https://www.tslobodnick.ca/ComingSoon/",
             "web" : "https://www.tslobodnick.ca/AmongUsWeb/"
+        }
+    },
+    "Kibble" : {
+        "title" : "Kibble Up",
+        "description" : "This is a site that contains all the important kibble information for the game \"Ark: Survival Evolved\". It is used to get info on what kind of kibble a dino prefers, what kind of kibble you can make with different dino eggs, as well as a list of all the kibble recipes.",
+        "links" : {
+            "github" : "https://www.tslobodnick.ca/ComingSoon/",
+            "info" : "https://www.tslobodnick.ca/ComingSoon/",
+            "web" : "https://www.tslobodnick.ca/KibbleUp/"
         }
     }
 }
