@@ -2,6 +2,15 @@ const maxMobileCharsLength = 200;
 const animTime = 0.5;
 const mobileAnimTime = 0.1;
 const projects = {
+    "ACNH" : {
+        "title" : "Museum Tracker For Animal Crossing New Horizons",
+        "description" : "I always wanted an easy way to track my museum progress in Animal Crossing New Horizons, so I built this app. It is used to log which bugs, fossils, art, fish, and other sea creatures you have in your museum. It also makes it easy to find the creatures you dont have in your museum, so you can start searching for them.",
+        "links" : {
+            "github" : "https://github.com/TrevorSlobodnick/ACNHMuseumTracker",
+            "info" : "https://www.tslobodnick.ca/ProjectInfo/MuseumTracker",
+            "web" : "https://www.tslobodnick.ca/MuseumTracker"
+        }
+    },
     "Pokemon" : {
         "title" : "Personal Pokemon Card Tracker",
         "description" : "This is an app that I made for myself to help manage/track my pokemon card collection.",
@@ -18,6 +27,24 @@ const projects = {
             "github" : "https://github.com/TrevorSlobodnick/VoltorbFlip",
             "info" : "https://www.tslobodnick.ca/ProjectInfo/VoltorbFlip",
             "web" : "https://www.tslobodnick.ca/VoltorbFlip"
+        }
+    },
+    "Blimeys" : {
+        "title" : "Blimeys Website Redesign",
+        "description" : "This is a redesign of a small british store called Blimeys",
+        "links" : {
+            "github" : "https://github.com/TrevorSlobodnick/BlimeysRedesign",
+            "info" : "https://www.tslobodnick.ca/ProjectInfo/Blimeys",
+            "web" : "https://www.tslobodnick.ca/Blimeys"
+        }
+    },
+    "AmongUs" : {
+        "title" : "Among Us Fansite",
+        "description" : "This is a site for the game among us that has a bunch of different info about the game and developers, and also features a chatroom.",
+        "links" : {
+            "github" : "https://github.com/TrevorSlobodnick/AmongUsWeb",
+            "info" : "https://www.tslobodnick.ca/ProjectInfo/AmongUsWeb",
+            "web" : "https://www.tslobodnick.ca/AmongUsWeb"
         }
     },
     "Kibble" : {
