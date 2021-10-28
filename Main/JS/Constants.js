@@ -3,12 +3,12 @@ const animTime = 0.5;
 const mobileAnimTime = 0.1;
 const projects = {
     "Pokemon" : {
-        "title" : "Personal Pokemon Card Tracker",
-        "description" : "This is an app that I made for myself to help manage/track my pokemon card collection.",
+        "title" : "Pokemon Card Collection",
+        "description" : "This is an app that I made for myself to help manage/track my personal pokemon card collection.",
         "links" : {
             "github" : "https://github.com/TrevorSlobodnick/PokemonCardCollection_v2",
             "info" : "https://www.tslobodnick.ca/ProjectInfo/PokemonCardCollection",
-            "web" : "https://www.tslobodnick.ca/PokemonCardTracker"
+            "web" : "https://www.tslobodnick.ca/PokemonCardCollection"
         }
     },
     "Voltorb" : {
