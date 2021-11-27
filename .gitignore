@@ -2,3 +2,6 @@
 .DS_STORE
 # Ignore VSCode Files
 .vscode/
+#ignore other private and unnecessary files
+sitemap.xml
+TDS.ico
